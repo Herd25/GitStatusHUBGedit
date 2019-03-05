@@ -345,8 +345,11 @@ clone() {
 							touch $FILE/open.txt
 							echo -e "**Bienvenido $USER** este es tu espacio de trabajo cada vez \n que se hagan cambios el programa te avisara no olvides visitarme \n y dejar tu comentario si te gusto el plugin (https://www.youtube.com/c/DesignPrograming)" >> open.txt
 							gedit open.txt
-							sleep 30
-							verify
+							while true
+							do
+								sleep 30
+								verify
+							done
 						elif [[ $? -eq 1 ]]; then
 							zenity --error --icon-name="alert" --width=300 \
 								--title="Retorno al Menu" \
@@ -424,8 +427,11 @@ create() {
 				touch $FILE/Readme.md
 				echo -e "##Bienvenido $USER este es tu espacio de trabajo cada vez \n que se hagan cambios el programa te avisara no olvides visitarme \n y dejar tu comentario si te gusto el plugin ![Design&Programing](https://www.youtube.com/c/DesignPrograming)" >> Readme.md
 				gedit Readme.md &
-				sleep 30
-				verify
+				while true
+				do
+					sleep 30
+					verify
+				done
 			else
 				notify-send -t 10000 -i $iconsdir/src/images.png "Operacion Exitosa" "Repositorio Nuevo Creado.."
 			fi
@@ -440,8 +446,11 @@ create() {
 				touch $FILE/open.txt
 				echo -e "**Bienvenido $USER** este es tu espacio de trabajo cada vez \n que se hagan cambios el programa te avisara no olvides visitarme \n y dejar tu comentario si te gusto el plugin (https://www.youtube.com/c/DesignPrograming)" >> open.txt
 				gedit open.txt &
-				sleep 30
-				verify
+				while true
+				do
+					sleep 30
+					verify
+				done
 			else
 				notify-send -t 10000 -i $iconsdir/src/images.png "Operacion Exitosa" "Repositorio Nuevo Creado.."
 			fi
