@@ -1,0 +1,60 @@
+#!/bin/bash
+######################################
+######################################
+######                       #########
+#######   GITSTATUSHUB     ###########
+######### FOR GEDIT BY ###############
+#### CREATED DESIGN&PROGRAMING #######
+######                       #########
+######################################
+######################################
+
+
+######################################
+######################################
+######                       #########
+###    CONTROLA EN TIEMPO REAL   #####
+#####  CREA TUS REPOSITORIOS    ######
+##### CON GEDIT MANTEN MEJOR  ########
+##### MENEJO DE LA CONSOLA GIT #######
+##### SIEMPRE ACTUALIZADO TUS ########
+##### REPOSITORIOS SIN ESTAR  ########
+#####     USANDO UN TERMINAL  ########
+######                       #########
+######################################
+######################################
+
+
+clear
+echo "HOLA REALIZANDO LA OPERACION"
+echo "NO OLVIDES COMPARTIR TU EXPERIENCIA"
+echo "Visitame en https://www.youtube.com/c/DesignPrograming"
+let Inicio=true
+let Termino=false
+while [ $Inicio ]; do
+	echo "Progreso ...."
+	if [ -d $HOME/.config/gedit/tools/ ]
+		then
+		cd SCRIPT/
+		cp GitStatus -rf $HOME/.config/gedit/tools/GitStatusControl | pv
+		cp src -rf $HOME/.config/gedit/tools/icon/ | pv
+		if [ -f $HOME/.config/gedit/tools/UNICompilerDesignPrograming ]
+			then
+			echo "Terminado Buscar en Gestor de Herramientas Externas y pon un atajo para ejecutra"
+			echo "Cualquier duda puedes preguntar en cualquiera de estos enlaces"
+			echo "https://www.youtube.com/c/DesignPrograming"
+			echo "https://www.facebook.com/DesignPrograming/"
+			echo "https://twitter.com/DesignProgramin"
+			echo "\n"
+			echo "Suerte ....."
+			cd ../
+			rm -rf *
+			break
+		fi
+	else
+		echo "NO existe el directorio necesitas instalar gedit..."
+		let Termino=true
+		if [ termino ]; then break; fi
+	fi
+	sleep 1
+done

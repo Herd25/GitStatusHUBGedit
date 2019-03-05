@@ -1,0 +1,517 @@
+#!/bin/sh
+
+#####################################
+#######                  ############
+##### GIT CONTROL STATUS GEDIT ######
+#####                          ######
+#####################################
+
+#####################################
+######                       ########
+##### CONTROLADOR DE ESTADOS ########
+#### PARA GITHUB MANTEN EN ##########
+##### CONTROL LOS REPOSITORIOS ######
+#####                          ######
+#####################################
+
+# Git configurate functions
+#ALLONE
+
+# Git status directory checked
+iconsdir=$(pwd)
+
+# Add selected update commit
+selectupdate() {
+	(
+	echo "10" ; sleep 1
+	echo "#Creando cambios en la rama"
+	echo "20" ; sleep 1
+	echo "#Añadiendo Archivos $@"
+	git add $@
+	echo "50" ; sleep 1
+	echo "#Cargando Cambios"
+	echo "100" ; sleep 1
+	echo "#Proceso terminado.."
+	zenity --question --icon-name="git" --width=300 \
+		--title="Guardar Cambios!" \
+		--text="Donde desea almacenar los cambios" \
+		--ok-label="LOCAL" --cancel-label="REMOTO"
+		if [[ $? -eq 0 ]]; then
+			MESSAGE=$(zenity --entry --title="Ingresa un texto"\
+				--text="Aplica un mensaje para tu commit!")
+				if [[ $? -eq 0 ]]; then
+					git commit -m "$MESSAGE"
+					zenity --error --icon-name="success" --title="Proceso Exitoso!" --text="Se realizo con exito el commit!"
+					notify-send -t 10000 -i $iconsdir/src/images.png "Proceso Exitoso!" "Cambios añadidos al master"
+					git push origin master
+				elif [[ $? -eq 1 ]]; then
+					zenity --error --icon-name="alert" --width=300 \
+						--title="Se Cancelo Operacion!"
+						--text="Abortando commit"
+					notify-send -t 10000 -i $iconsdir/src/code-fork-512.png "Proceso Fallido" "Aborto el proceso"
+				fi
+		elif [[ $? -eq 1 ]]; then
+			REMOTE=$(zenity --entry --title="Ingresa el nombre del servidor"\
+				--text="Añade la direccion de tu repositorio alojado!")
+				if [[ $? -eq 0 ]]; then
+					MESSAGE=$(zenity --entry --title="Ingresa un texto"\
+						--text="Aplica un mensaje para tu commit!")
+						if [[ $? -eq 0 ]]; then
+							git commit -m "$MESSAGE"
+							zenity --error --icon-name="success" --title="Proceso Exitoso!" --text="Se realizo con exito el commit!"
+							notify-send -t 10000 -i $iconsdir/src/images.png "Proceso Exitoso!" "Cambios añadidos al master"
+							git push origin master
+							git remote add origin "$REMOTE"
+						elif [[ $? -eq 1 ]]; then
+							zenity --error --icon-name="alert" --width=300 \
+								--title="Se Cancelo Operacion!"
+								--text="Abortando commit"
+							notify-send -t 10000 -i $iconsdir/src/code-fork-512.png "Proceso Fallido" "Aborto el proceso"
+						fi
+						elif [[ $? -eq 1 ]]; then
+							zenity --error --icon-name="alert" --width=300 \
+								--title="Se Cancelo Operacion!"
+								--text="Abortando commit"
+							notify-send -t 10000 -i $iconsdir/src/code-fork-512.png "Proceso Fallido" "Aborto el proceso"
+							fi
+		fi
+	) |
+	zenity --progress --icon-name="git" --width=300 \
+		--title="Añadiendo Cambios!" \
+		--text="Guardando cambios al repositorio"
+		--percentage=0
+		if [[ $? -eq -1 ]]; then
+			zenity --error --icon-name="alert" --width=300 \
+				--text="Has cancelado el proceso!"
+			notify-send -t 10000 -i $iconsdir/src/code-fork-512.png "Proceso Fallido" "Aborto el proceso"
+			fi
+}
+
+# Add all files update commit
+allupdate() {
+	(
+	echo "10" ; sleep 1
+	echo "#Creando cambios en la rama"
+	echo "20" ; sleep 1
+	echo "#Añadiendo Archivos"
+	git add .
+	echo "50" ; sleep 1
+	echo "#Cargando Cambios"
+	echo "100" ; sleep 1
+	echo "#Proceso terminado.."
+	zenity --question --icon-name="git" --width=300 \
+		--title="Guardar Cambios!" \
+		--text="Donde desea almacenar los cambios" \
+		--ok-label="LOCAL" --cancel-label="REMOTO"
+		if [[ $? -eq 0 ]]; then
+			MESSAGE=$(zenity --entry --title="Ingresa un texto"\
+				--text="Aplica un mensaje para tu commit!")
+				if [[ $? -eq 0 ]]; then
+					git commit -m "$MESSAGE"
+					zenity --error --icon-name="success" --title="Proceso Exitoso!" --text="Se realizo con exito el commit!"
+					notify-send -t 10000 -i $iconsdir/src/images.png "Proceso Exitoso!" "Cambios añadidos al master"
+					git push origin master
+				elif [[ $? -eq 1 ]]; then
+					zenity --error --icon-name="alert" --width=300 \
+						--title="Se Cancelo Operacion!"
+						--text="Abortando commit"
+					notify-send -t 10000 -i $iconsdir/src/code-fork-512.png "Proceso Fallido" "Aborto el proceso"
+				fi
+		elif [[ $? -eq 1 ]]; then
+			REMOTE=$(zenity --entry --title="Ingresa el nombre del servidor"\
+				--text="Añade la direccion de tu repositorio alojado!")
+				if [[ $? -eq 0 ]]; then
+					MESSAGE=$(zenity --entry --title="Ingresa un texto"\
+						--text="Aplica un mensaje para tu commit!")
+						if [[ $? -eq 0 ]]; then
+							git commit -m "$MESSAGE"
+							zenity --error --icon-name="success" --title="Proceso Exitoso!" --text="Se realizo con exito el commit!"
+							notify-send -t 10000 -i $iconsdir/src/images.png "Proceso Exitoso!" "Cambios añadidos al master"
+							git push origin master
+							git remote add origin "$REMOTE"
+						elif [[ $? -eq 1 ]]; then
+							zenity --error --icon-name="alert" --width=300 \
+								--title="Se Cancelo Operacion!"
+								--text="Abortando commit"
+							notify-send -t 10000 -i $iconsdir/src/code-fork-512.png "Proceso Fallido" "Aborto el proceso"
+						fi
+				elif [[ $? -eq 1 ]]; then
+					zenity --error --icon-name="alert" --width=300 \
+						--title="Se Cancelo Operacion!"
+						--text="Abortando commit"
+					notify-send -t 10000 -i $iconsdir/src/code-fork-512.png "Proceso Fallido" "Aborto el proceso"
+					fi
+				fi
+	) |
+	zenity --progress --icon-name="git" --width=300 \
+		--title="Añadiendo Cambios!" \
+		--text="Guardando cambios al repositorio"
+		--percentage=0
+		if [[ $? -eq -1 ]]; then
+			zenity --icon-name="alert" --error \
+				--text="Has cancelado el proceso!"
+				notify-send -t 10000 -i $iconsdir/src/code-fork-512.png "Proceso Fallido" "Aborto el proceso"
+		fi
+}
+
+# Verify update form directories
+verify() {
+	CHANGES=$( find $1 -mmin -30 -type f | sed 's|^./||' )
+	TYPE=$( file -i $CHANGES | sed 's/;//g' | sed 's/://g' )
+	echo "$TYPE"$'\r' > result.txt
+	if [[ $CHANGES ]]; then
+		zenity --error --icon-name="git" --title="Confirmacion" --width=300 \
+			--text="Se Encontraron cambios " \
+			--text="Hacer Commit ?" \
+			--ok-label="OK"
+			if [[ $? -eq 0 ]]; then
+				unset list
+				while read -r lines
+				do
+					list+=("TRUE")
+					list+=("$lines")
+				done < result.txt
+				FILES=$(zenity --list --checklist --width=800 --height=450 \
+						--title="Eleccion de Commit" \
+						--text="Elije que fichero deseas agregar" \
+						--column="ACCION" --column="Archivo" --column="Tipo de fichero" --column="Codificacion" ${list[@]}\
+						--ok-label="AÑADIR" --cancel-label="TODOS")
+						if [[ $? -eq 0 ]]; then
+							case $FILES in
+							*)
+								echo "$FILES"$'\r' > selected.txt
+								while read -r items
+								do
+									selectupdate $items
+								done < selected.txt
+								;;
+							esac
+						elif [[ $? -eq 1 ]]; then
+							allupdate
+						fi
+			else
+				notify-send -t 10000 -i $iconsdir/src/code-fork-512.png "Buscando Cambios" "Buscando actualizaciones"
+			fi
+	else
+		zenity --error --icon-name="alert" --title="No se encontro" --text="No se encontro ningun archivo"
+	fi
+}
+
+# Git Initial configure
+configurate() {
+	formdata=$(zenity --forms --icon-name="git" --title="Ingresa tus datos?" --text="Confirmacion de usuario" \
+		--separator="," --add-entry="Ingresa usuario" --add-entry="Ingresar tu email" \
+		--ok-label="Comenzar" --cancel-label="Regresar" )
+	frmuser=$(echo $formdata | awk 'BEGIN {FS=","} { print $1 }')
+	frmemail=$(echo $formdata | awk 'BEGIN {FS=","} { print $2 }')
+	accepted=$?
+	if [[ accepted -eq 0 ]]; then
+		sleep 5
+		parse $frmuser $frmemail
+	elif [[ accepted -eq 1 ]]; then
+		notify-send -t 10000 -i $iconsdir/src/git.jpg "Retorno" "Se esta retornando la menu escoja una opcion"
+		sleep 5
+		menu
+	fi
+}
+
+# parse data information
+parse() {
+	regex='^[^@]+@[^@]+\.[a-zA-Z]{2,}$'
+	if [[ -z $1 && -z $2 ]]; then
+		notify-send -t 10000 -i $iconsdir/src/images_1.png "Datos vacios" "No se han recibido datos"
+		sleep 5
+		menu
+		break
+	else
+		echo $1 > data.txt
+		if [[ $2 =~ $regex ]]; then
+			$2 >> data.txt
+		else
+			notify-send -t 10000 -i $iconsdir/src/images_1.png "Email invalido" "el email ingresado no concuerda con una extension valida"
+			sleep 5
+			menu
+			break
+		fi
+	fi
+	file="data.txt"
+	if [[ -f $file ]]; then
+		while IFS=' ' read -r name mail || [[ -n "$line" ]]; do
+			if [[ $(wc -l <$file) -eq 1 ]]; then
+				notify-send -t 10000 -i $iconsdir/src/images_1.png "Error de datos" "El usuario o email estan \n vacios llene de manera correcta"
+				sleep 5
+				configurate
+				break
+			else
+				sleep 10
+				generateKeys $name $mail
+			fi
+		done < "$file"
+	else
+		notify-send -t 10000 -i $iconsdir/src/images_1.png "Incorrecto" "Los campos estan vacios"
+		sleep 5
+		menu
+		break
+	fi
+}
+
+# Git generate keys in directory
+generateKeys() {
+	zenity --icon-name="alert" --question --width=200 --height=50 \
+		--title="Confirmacion" --text="Son correctos los datos: $1 $2"
+	confirm=$?
+	if [[ $confirm -eq 0 ]]; then
+		(
+		echo "10" ; sleep 1
+		echo "# Configurando $1 en el registro.."
+		git config --global user.name "$1"
+		echo "20" ; sleep 1
+		echo "# Configurando $2 en el registro.."
+		git config --global user.email "$2"
+		echo "30" ; sleep 1
+		echo "# Generando las keys para el entorno.."
+		ssh-keygen -t rsa -b 4096 -C "$2" --noconfirm
+		echo "40" ; sleep 1
+		echo "# Evaluando la creacion del key.."
+		eval "$(ssh-agent -s)"
+		Agent=$(eval "$(ssh-agent -s)")
+		if [[ -z $Agent ]]; then
+			zenity --error \
+				--text="Hubo un error al generar las Keys! Saliendo..."
+			fi
+			echo "50" ; sleep 1
+			echo "# Terminando de instanciar las keys.."
+			ssh-add ~/.ssh/id_rsa
+			echo "100" ; sleep 1
+			echo "# Proceso Terminado con exito!"
+			while read -r lines || [[ -n "$line" ]]; do
+				value=$lines
+			done < ~/.ssh/id_rsa.pub
+			zenity --icon-name="key" --question \
+				--title="Proceso exitoso"
+				--text="Para terminar de configurar ve a github(https://github.com/)"
+				--text="Crea una nueva SSH KEY Pega el siguiente contenido"
+				--text="$value"
+		) |
+		zenity --icon-name="git" --progress \
+			--title="Configurando Git"
+			--text="Actualizando entorno"
+			--percentage=0
+		if [[ "$?" = -1 ]]; then
+			zenity --icon-name="alert" --error \
+				--text="Has cancelado el proceso!"
+		fi
+	elif [[ $confirm -eq 1 ]]; then
+		notify-send -t 10000 -i $iconsdir/src/images_1.png "Relleno de Formulario" "Vuelva a ingresar los datos"
+		sleep 5
+		configurate
+	fi
+}
+
+# Git Clonate Repository
+clone() {
+	ENTRY=$(zenity --entry --title="Ingresa le Repositorio" \
+		--text="Ingresa el nombre del repositorio a clonar" \
+		--ok-label="Ingresar" --cancel-label="Menu")
+	if [[ $? -eq 0 ]]; then
+		FILE=$(zenity --file-selection --directory \
+			--title="Selecciona un Directorio para clonar el Repositorio" \
+			--filename=$HOME/Desktop/)
+		case $? in
+		0)
+			cd $FILE
+			zenity --error --icon-name="git" --width=300 \
+				--title="Direccion de Directorio!" \
+				--text="El directorio Seleccionado es $FILE" \
+				--ok-label="CLONAR"
+				if [[ $? -eq 0 ]]; then
+					(
+					echo "10" ; sleep 1
+					echo "# Clonando $ENTRY en $FILE"
+					cd $FILE
+					echo "20" ; sleep 1
+					echo "# # Clonando $ENTRY en $FILE"
+					git clone $ENTRY
+					echo "40" ; sleep 1
+					echo "# # Clonando $ENTRY en $FILE."
+					echo "70" ; sleep 1
+					echo "# Terminando de configurar $ENTRY.."
+					echo "100" ; sleep 1
+					zenity --question --icon-name="git" --width=300 \
+						--title="Termino la Operacion" \
+						--text="Abrir el entorno de trabajo en $FILE" \
+						--ok-label="SI" --cancel-label="NOGRACIAS"
+						if [[ $? -eq 0 ]]; then
+							touch $FILE/open.txt
+							echo -e "**Bienvenido $USER** este es tu espacio de trabajo cada vez \n que se hagan cambios el programa te avisara no olvides visitarme \n y dejar tu comentario si te gusto el plugin (https://www.youtube.com/c/DesignPrograming)" >> open.txt
+							gedit open.txt
+							sleep 30
+							verify
+						elif [[ $? -eq 1 ]]; then
+							zenity --error --icon-name="alert" --width=300 \
+								--title="Retorno al Menu" \
+								--text="Regresando..."
+							sleep 5
+							menu
+						fi
+					) |
+					zenity --progress \
+						--title="Clonando Repositorio Remoto" \
+						--text="Clonando desde $ENTRY"
+						--percentage=0
+					if [[ $? -eq -1 ]]; then
+						zenity --error --icon-name="alert" --width=300 \
+							--text="Has cancelado el proceso!"
+						notify-send -t 10000 -i $iconsdir/src/images_1.png "Cancelacion" "Se cancelo el proceso"
+						sleep 5
+						menu
+					fi
+				elif [[ $? -eq 1 ]]; then
+					notify-send -t 10000 -i $iconsdir/src/images_1.png "Retorno" "Cancelacion del proceso"
+					sleep 5
+					menu
+				fi
+			;;
+		1)
+			zenity --error --icon-name="alert" --width=300 \
+				--title="Retorno al Menu" \
+				--text="No haz seleccionado ningun directorio Regreso al menu"
+			notify-send -t 10000 -i $iconsdir/src/git.jpg "No Seleccion" "Retornando al menu"
+			sleep 5
+			menu
+			;;
+		*)
+			zenity --error --icon-name="alert" --width=300 \
+				--title="Hasta Pronto" \
+				--text="Cerrando interfaz"
+			notify-send -t 10000 -i $iconsdir/src/github-sociocon.png "Hasta pronto" "$USER"
+			;;
+		esac
+	else
+		zenity --error --icon-name="alert" --width=300 \
+			--title="Retorno al Menu" \
+			--text="No se clonara nada aun Regreso al menu.."
+		notify-send -t 10000 -i $iconsdir/src/git.jpg "No Seleccion" "Retornando al menu"
+		sleep 5
+		menu
+	fi
+}
+
+# Git create Repository
+create() {
+	IGNOREFILE=$(echo "$(pwd)/global.gitignore")
+	FILE=$(zenity --file-selection --directory \
+		--title="Selecciona un Directorio" \
+		--filename=$HOME/Desktop/)
+	case $? in
+	0)
+		cd $FILE
+		git init
+		zenity --question --icon-name="git" --width=300 \
+			--title="Directorio Creado" \
+			--text="Creado con exito en $FILE" \
+			--text="Desea añadir un gitignore al proyecto y un README.md?" \
+			--ok-label="SI" --cancel-label="NO Gracias"
+		if [[ $? -eq 0 ]]; then
+			notify-send -t 10000 -i $iconsdir/src/images.png "Operacion Exitosa" "Repositorio Nuevo Creado.."
+			cp -rf $IGNOREFILE $FILE/.gitignore
+			zenity --question --icon-name="git" --width=200 \
+				--title="Comienzo del Codigo" \
+				--text="Quiere abrir el espacio de trabajo?" \
+				--ok-label="OK" --cancel-label="NoGracias"
+			affirmation=$?
+			if [[ $affirmation -eq 0 ]]; then
+				touch $FILE/Readme.md
+				echo -e "##Bienvenido $USER este es tu espacio de trabajo cada vez \n que se hagan cambios el programa te avisara no olvides visitarme \n y dejar tu comentario si te gusto el plugin ![Design&Programing](https://www.youtube.com/c/DesignPrograming)" >> Readme.md
+				gedit Readme.md &
+				sleep 30
+				verify
+			else
+				notify-send -t 10000 -i $iconsdir/src/images.png "Operacion Exitosa" "Repositorio Nuevo Creado.."
+			fi
+		else
+			notify-send -t 10000 -i $iconsdir/src/images.png "Operacion Exitosa" "Repositorio Nuevo Creado.."
+			zenity --question --icon-name="git" --width=200 \
+				--title="Comienzo del Codigo" \
+				--text="Quiere abrir el espacio de trabajo?" \
+				--ok-label="OK" --cancel-label="NoGracias"
+			affirm=$?
+			if [[ $affirm -eq 0 ]]; then
+				touch $FILE/open.txt
+				echo -e "**Bienvenido $USER** este es tu espacio de trabajo cada vez \n que se hagan cambios el programa te avisara no olvides visitarme \n y dejar tu comentario si te gusto el plugin (https://www.youtube.com/c/DesignPrograming)" >> open.txt
+				gedit open.txt &
+				sleep 30
+				verify
+			else
+				notify-send -t 10000 -i $iconsdir/src/images.png "Operacion Exitosa" "Repositorio Nuevo Creado.."
+			fi
+		fi
+		;;
+	1)
+		zenity --error --width=300 --icon-name="alert"\
+			--title="Creacion de Repositorio" \
+			--text="No se ha seleccionado ningun directorio retorno al menu"
+		notify-send -t 10000 -i $iconsdir/src/git.jpg "Retorno de Menu" "No se ha seleccionado ningun directorio"
+		sleep 5
+		menu
+		;;
+	*)
+		zenity --error --width=300 --icon-name="alert"\
+			--text="Hasta pronto $USER"
+		notify-send -t 10000 -i $iconsdir/src/github-sociocon.png "Hasta pronto" "$USER"
+		break
+		;;
+	esac
+}
+
+# Running Menu GLobal
+
+# Make and functions
+menu() {
+	zenity --question --icon-name="git" --width=200 --height=80 --title="Menu de configuracion" --text="Hola $USER Escoge una opcion para continuar" --ok-label="Ingresar" --cancel-label="Salir"
+	if [[ $? == 0 ]]; then
+		choise=$(zenity --list --width=1000 --height=400 --column=" " \
+			--title="Que deseas Hacer?" --text="$USER Escoge una opcion para poder continuar!" \
+			"Configurar por primera vez.." \
+			"Crear un nuevo repositorio!" \
+			"Clonar un repositorio!" )
+			case ${choise} in
+			"Configurar por primera vez..")
+				sleep 5
+				configurate
+				;;
+			"Crear un nuevo repositorio!")
+				sleep 5
+				create
+				;;
+			"Clonar un repositorio!")
+				sleep 5
+				clone
+				;;
+			*)
+				zenity --error --width=300 --icon-name="git"\
+					--title="Hasta Pronto" \
+					--text="Cerrando interfaz"
+				notify-send -t 10000 -i $iconsdir/src/github-sociocon.png "Hasta pronto" "$USER"
+				break
+				;;
+			esac
+	else
+		zenity --error --width=300 --icon-name="git"\
+			--title="Hasta Pronto" \
+			--text="Cerrando interfaz"
+		notify-send -t 10000 -i $iconsdir/src/github-sociocon.png "Hasta pronto" "$USER"
+		break
+	fi
+}
+
+# Running GUI zenity commands
+zenity --info --icon-name="git" --text="Bienvenido $USER a GITSTATUS! \n
+		comenzemos con la configuracion inicial.." \
+	--title="Bienvenido a GITSTATUS .)" --ok-label="Comenzar" --width=400 --height=200
+	if [[ $? == 0 ]]; then
+		sleep 5
+		menu
+	else
+		notify-send -t 10000 -i $iconsdir/src/github-sociocon.png "Hasta Pronto" "$USER"
+	fi
